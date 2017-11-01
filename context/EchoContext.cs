@@ -17,6 +17,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 using System;
 using System.Linq;
 using MimeKit;
+using MimeKit.Utils;
 
 namespace Health.Direct.Context
 {
@@ -38,7 +39,7 @@ namespace Health.Direct.Context
             var contextBuilder = new ContextBuilder();
 
             contextBuilder
-                .WithContentId($"<{Guid.NewGuid():N}@{Environment.MachineName}>")
+                .WithContentId(MimeUtils.GenerateMessageId())
                 .WithDisposition(context.ContentDisposition.FileName)
                 .WithTransferEncoding(context.ContentTransferEncoding)
                 .WithVersion(context.Metadata.Version)
@@ -60,8 +61,8 @@ namespace Health.Direct.Context
             echoMessage.From.Add(message.To.Mailboxes.First());
             echoMessage.To.Add(message.From.Mailboxes.First());
             echoMessage.Subject = message.Subject;
-            echoMessage.MessageId = $"<{Guid.NewGuid():N}@{Environment.MachineName}>";
-            echoMessage.Headers.Add(MailStandard.Headers.DirectContext, messageBuilt.ContentId);
+            echoMessage.MessageId = MimeUtils.GenerateMessageId();
+            echoMessage.Headers.Add(MailStandard.Headers.DirectContext, messageBuilt.Headers[ContextStandard.ContentIdHeader]);
             
             var body = new TextPart("plain")
             {

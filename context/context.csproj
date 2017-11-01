@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MimeKitLite, Version=1.18.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
-      <HintPath>..\build\packages\MimeKitLite.1.18.1\lib\net451\MimeKitLite.dll</HintPath>
+      <HintPath>..\packages\MimeKitLite.1.18.1\lib\net451\MimeKitLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

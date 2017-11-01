@@ -141,10 +141,18 @@ namespace Health.Direct.Context.Tests
         {
             var directMessage = MimeMessage.Load(file);
             var context = directMessage.DirectContext();
+            
             var message = EchoContext.Process(directMessage);
+
             var directMessageRebuilt = MimeMessage.Load(message.ToString().ToStream());
-            var messageRebuilt = directMessageRebuilt.DirectContext();
-            AssertEqual(context, messageRebuilt);
+            var contextRebuilt = directMessageRebuilt.DirectContext();
+            AssertEqual(context, contextRebuilt);
+
+            Assert.StartsWith("<", contextRebuilt.Headers[ContextStandard.ContentIdHeader]);
+            Assert.EndsWith(">", contextRebuilt.Headers[ContextStandard.ContentIdHeader]);
+
+            Assert.StartsWith("<", directMessageRebuilt.Headers[MailStandard.Headers.DirectContext]);
+            Assert.EndsWith(">", directMessageRebuilt.Headers[MailStandard.Headers.DirectContext]);
         }
 
         [Fact]
@@ -191,7 +199,9 @@ namespace Health.Direct.Context.Tests
             message.From.Add(new MailboxAddress("HoboJoe", "hobojoe@hsm.DirectInt.lab"));
             message.To.Add(new MailboxAddress("Toby", "toby@redmond.hsgincubator.com"));
             message.Subject = "Sample message with pdf and context attached";
-            message.Headers.Add(MailStandard.Headers.DirectContext, context.ContentId);
+            message.Headers.Add(MailStandard.Headers.DirectContext, context.Headers[ContextStandard.ContentIdHeader]);
+            Assert.StartsWith("<", context.Headers[HeaderId.ContentId]);
+            Assert.EndsWith(">", context.Headers[HeaderId.ContentId]);
 
             var body = new TextPart("plain")
             {
@@ -231,6 +241,9 @@ namespace Health.Direct.Context.Tests
             var messageParsed = MimeMessage.Load(message.ToString().ToStream());
             Assert.True(messageParsed.ContainsDirectContext());
             Assert.Equal(context.ContentId, messageParsed.DirectContextId());
+            Assert.StartsWith("<", messageParsed.Headers[MailStandard.Headers.DirectContext]);
+            Assert.EndsWith(">", messageParsed.Headers[MailStandard.Headers.DirectContext]);
+
             var contextParsed = message.DirectContext();
             Assert.NotNull(contextParsed);
 
