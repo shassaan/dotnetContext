@@ -24,7 +24,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 ## Installing via NuGet
 
-The easiest way to install MimeKit is via [NuGet](https://www.nuget.org/packages/DirectProjectDotNetContext/).
+The easiest way to install DirectProject.DotNet.Context is via [NuGet](https://www.nuget.org/packages/DirectProject.DotNet.Context/).
 
 In Visual Studio's [Package Manager Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console),
 simply enter the following command:
