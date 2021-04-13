@@ -12,14 +12,14 @@ namespace Health.Direct.Context.Tests
     public class TestContext
     {
         [Theory]
-        [InlineData("ContextTestFiles\\ContextSimple1.txtBase64")]
-        [InlineData("ContextTestFiles\\ContextSimple1.txtBinary")]
-        [InlineData("ContextTestFiles\\ContextSimple1.txtDefault")]
-        [InlineData("ContextTestFiles\\ContextSimple1.txtEightBit")]
-        [InlineData("ContextTestFiles\\ContextSimple1.txtQuotedPrintable")]
-        [InlineData("ContextTestFiles\\ContextSimple1.txtSevenBit")]
+        [InlineData("ContextTestFiles/ContextSimple1.txtBase64")]
+        [InlineData("ContextTestFiles/ContextSimple1.txtBinary")]
+        [InlineData("ContextTestFiles/ContextSimple1.txtDefault")]
+        [InlineData("ContextTestFiles/ContextSimple1.txtEightBit")]
+        [InlineData("ContextTestFiles/ContextSimple1.txtQuotedPrintable")]
+        [InlineData("ContextTestFiles/ContextSimple1.txtSevenBit")]
         //UUEncode not supported.   
-        //[InlineData("ContextTestFiles\\ContextSimple1.txtUUEncode")]
+        //[InlineData("ContextTestFiles/ContextSimple1.txtUUEncode")]
         public void TestParseContext(string file)
         {
             var message = MimeMessage.Load(file);
@@ -77,7 +77,7 @@ namespace Health.Direct.Context.Tests
 
 
         [Theory]
-        [InlineData("ContextTestFiles\\ContextSimple.PatienIdOnly.txtDefault")]
+        [InlineData("ContextTestFiles/ContextSimple.PatienIdOnly.txtDefault")]
         public void TestParseContextNoPatentMatching(string file)
         {
             var message = MimeMessage.Load(file);
@@ -89,7 +89,7 @@ namespace Health.Direct.Context.Tests
         }
 
         [Theory]
-        [InlineData("ContextTestFiles\\ContextSimple1.txtDefault", "1.0")]
+        [InlineData("ContextTestFiles/ContextSimple1.txtDefault", "1.0")]
         public void TestParseContextByVersion(string file, string version)
         {
             var message = MimeMessage.Load(file);
@@ -109,7 +109,7 @@ namespace Health.Direct.Context.Tests
         }
 
         [Theory]
-        [InlineData("ContextTestFiles\\ContextSimple1.txtDefault", "2.0")]
+        [InlineData("ContextTestFiles/ContextSimple1.txtDefault", "2.0")]
         public void TestParseContextByFutureVersion(string file, string version)
         {
             var message = MimeMessage.Load(file);
@@ -131,12 +131,12 @@ namespace Health.Direct.Context.Tests
         }
         
         [Theory]
-        [InlineData("ContextTestFiles\\ContextSimple1.txtBase64")]
-        [InlineData("ContextTestFiles\\ContextSimple1.txtBinary")]
-        [InlineData("ContextTestFiles\\ContextSimple1.txtDefault")]
-        [InlineData("ContextTestFiles\\ContextSimple1.txtEightBit")]
-        [InlineData("ContextTestFiles\\ContextSimple1.txtQuotedPrintable")]
-        [InlineData("ContextTestFiles\\ContextSimple1.txtSevenBit")]
+        [InlineData("ContextTestFiles/ContextSimple1.txtBase64")]
+        [InlineData("ContextTestFiles/ContextSimple1.txtBinary")]
+        [InlineData("ContextTestFiles/ContextSimple1.txtDefault")]
+        [InlineData("ContextTestFiles/ContextSimple1.txtEightBit")]
+        [InlineData("ContextTestFiles/ContextSimple1.txtQuotedPrintable")]
+        [InlineData("ContextTestFiles/ContextSimple1.txtSevenBit")]
         public void TestBuildContextRoundTrip(string file)
         {
             var directMessage = MimeMessage.Load(file);
@@ -296,7 +296,7 @@ namespace Health.Direct.Context.Tests
 
         
         [Theory]
-        [InlineData("ContextTestFiles\\ContextHL7.Default.txtBase64")]
+        [InlineData("ContextTestFiles/ContextHL7.Default.txtBase64")]
         public void TestBuildContextEncapsulationRoundTrip(string file)
         {
             var directMessage = MimeMessage.Load(file);
