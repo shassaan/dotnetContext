@@ -33,7 +33,7 @@ namespace Health.Direct.Context
         /// <remarks>
         /// Will be used in the future for selecting and identifying a version
         /// </remarks>
-        public static string Version = "1.0";
+        public static string Version = "1.1";
 
         /// <summary>
         /// Extract <see cref="Context"/> from a message (Health Content Container)
@@ -54,7 +54,7 @@ namespace Health.Direct.Context
             {
                 using (var stream = new MemoryStream())
                 {
-                    message.ContentObject.DecodeTo(stream);
+                    message.Content.DecodeTo(stream);
                     stream.Position = 0;
                     metadata = new Metadata(stream);
                 }
@@ -85,7 +85,7 @@ namespace Health.Direct.Context
 
             if (!metadata.Headers.Select(h => 
                 h.Field == ContextStandard.Version &&
-                h.Value == "1.0").Any())
+                h.Value == version).Any())
             {
                 throw new ContextException(ContextError.UnsupportedVersionIdentifier);
             }

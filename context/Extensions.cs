@@ -40,7 +40,7 @@ namespace Health.Direct.Context
             {
                 if (mimeEntity.ContentId == message.DirectContextId())
                 {
-                    return ContextParser.Parse(mimeEntity as MimePart, "1.0");
+                    return ContextParser.Parse(mimeEntity as MimePart, "1.1");
                 }
             }
 
@@ -110,7 +110,7 @@ namespace Health.Direct.Context
         {
             using (var stream = new MemoryStream())
             {
-                message.ContentObject.DecodeTo(stream);
+                message.Content.DecodeTo(stream);
                 stream.Position = 0;
                 var sr = new StreamReader(stream);
                 return sr.ReadToEnd();

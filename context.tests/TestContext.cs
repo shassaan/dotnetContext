@@ -89,7 +89,7 @@ namespace Health.Direct.Context.Tests
         }
 
         [Theory]
-        [InlineData("ContextTestFiles\\ContextSimple1.txtDefault", "1.0")]
+        [InlineData("ContextTestFiles\\ContextSimple1.txtDefault", "1.1")]
         public void TestParseContextByVersion(string file, string version)
         {
             var message = MimeMessage.Load(file);
@@ -220,7 +220,7 @@ namespace Health.Direct.Context.Tests
 
             var byteArray = Encoding.UTF8.GetBytes("Fake PDF (invalid)");
             var stream = new MemoryStream(byteArray);
-            pdf.ContentObject = new ContentObject(stream);
+            pdf.Content = new MimeContent(stream);
 
             //
             // Multi part construction
@@ -266,7 +266,7 @@ namespace Health.Direct.Context.Tests
             // Metatdata PatientId
             //
             Assert.Equal("2.16.840.1.113883.19.999999:123456", contextParsed.Metadata.PatientId);
-            Assert.Equal(1, contextParsed.Metadata.PatientIdentifier.Count());
+            Assert.Single(contextParsed.Metadata.PatientIdentifier);
             var patientIdentifiers = Enumerable.ToList(contextParsed.Metadata.PatientIdentifier);
             Assert.Equal("2.16.840.1.113883.19.999999", patientIdentifiers[0].PidContext);
             Assert.Equal("123456", patientIdentifiers[0].LocalPatientId);
@@ -310,7 +310,7 @@ namespace Health.Direct.Context.Tests
             Assert.Equal("hl7v2", context.Metadata.Encapsulation.Type);
 
             var encapsulations = Enumerable.ToList(directMessage.SelectEncapulations());
-            Assert.Equal(1, encapsulations.Count());
+            Assert.Single(encapsulations);
             Assert.Equal(@"MSH |^ ~\&| SENDING_APPLICATION | SENDING_FACILITY | RECEIVING_APPLICATION | RECEIVING_FACILITY | 20110613083617 || ADT ^ A01 | 934576120110613083617 | P | 2.3 ||||
 EVN | A01 | 20110613083617 |||
 PID | 1 || 135769 || MOUSE ^ MICKEY ^|| 19281118 | M ||| 123 Main St.^^ Lake Buena Vista ^ FL ^ 32830 || (407)939 - 1289 ^^^ theMainMouse@disney.com ||||| 1719 | 99999999 ||||||||||||||||||||
