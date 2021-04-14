@@ -4,13 +4,19 @@
     <Product>DirectProject.DotNet.Context</Product>
     <AssemblyName>Health.Direct.Context</AssemblyName>
     <RootNamespace>Health.Direct.Context</RootNamespace>
-    <Version>1.0.0.4-beta</Version>
+    <Version>0.0.0</Version>
+    <IncludeSource>True</IncludeSource>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageId>DirectProject.DotNet.Context</PackageId>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/DirectProject/dotnetContext</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>
