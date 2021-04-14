@@ -340,10 +340,25 @@ namespace Health.Direct.Context
             /// </summary>
             public const string PatientStreetAddress = "streetAddress";
             /// <summary>
+            /// <c>patient-parameter</c> value of "localityName"
+            /// </summary>
+            public const string PatientLocalityName = "localityName";
+            /// <summary>
+            /// <c>patient-parameter</c> value of "stateOrProvinceName"
+            /// </summary>
+            public const string PatientStateOrProvinceName = "stateOrProvinceName";
+            /// <summary>
             /// <c>patient-parameter</c> value of "postalCode"
             /// </summary>
             public const string PatientPostalCode = "postalCode";
-
+            /// <summary>
+            /// <c>patient-parameter</c> value of "country"
+            /// </summary>
+            public const string PatientCountry= "country";
+            /// <summary>
+            /// <c>patient-parameter</c> value of "directAddress"
+            /// </summary>
+            public const string PatientDirectAddress = "directAddress";
             /// <summary>
             /// patient-parameter-value 
             /// </summary>
@@ -397,7 +412,27 @@ namespace Health.Direct.Context
                 /// <summary>
                 /// The <c>postalCode patient-parameter</c>
                 /// </summary>
-                PostalCode
+                PostalCode,
+
+                /// <summary>
+                /// The <c>LocalityName patient-parameter</c>
+                /// </summary>
+                LocalityName,
+
+                /// <summary>
+                /// The <c>StateOrProvinceName patient-parameter</c>
+                /// </summary>
+                StateOrProvinceName,
+
+                /// <summary>
+                /// The <c>Country patient-parameter</c>
+                /// </summary>
+                Country,
+
+                /// <summary>
+                /// The <c>DirectAddress patient-parameter</c>
+                /// </summary>
+                DirectAddress
             }
         }
         

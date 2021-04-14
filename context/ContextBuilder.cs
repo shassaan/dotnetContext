@@ -261,7 +261,7 @@ namespace Health.Direct.Context
             mimePart.ContentId = _directContext.ContentId;
 
             var contextBodyStream = new MemoryStream(Encoding.UTF8.GetBytes(_directContext.Metadata.Deserialize()));
-            mimePart.ContentObject = new ContentObject(contextBodyStream);
+            mimePart.Content = new MimeContent(contextBodyStream);
             
             return mimePart;
         }

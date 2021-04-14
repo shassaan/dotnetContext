@@ -45,6 +45,12 @@ namespace Health.Direct.Context
             TelephoneNumber = patientAttributes.SingleOrDefault(p => p.Key.Equals(ContextStandard.Patient.PatientTelephoneNumber)).Value;
             StreetAddress = patientAttributes.SingleOrDefault(p => p.Key.Equals(ContextStandard.Patient.PatientStreetAddress)).Value;
             PostalCode = patientAttributes.SingleOrDefault(p => p.Key.Equals(ContextStandard.Patient.PatientPostalCode)).Value;
+
+            // version 1.1 additions
+            LocalityName = patientAttributes.SingleOrDefault(p => p.Key.Equals(ContextStandard.Patient.PatientLocalityName)).Value;
+            StateOrProvinceName = patientAttributes.SingleOrDefault(p => p.Key.Equals(ContextStandard.Patient.PatientStateOrProvinceName)).Value;
+            Country = patientAttributes.SingleOrDefault(p => p.Key.Equals(ContextStandard.Patient.PatientCountry)).Value;
+            DirectAddress = patientAttributes.SingleOrDefault(p => p.Key.Equals(ContextStandard.Patient.PatientDirectAddress)).Value;
         }
         
         /// <summary>
@@ -72,7 +78,7 @@ namespace Health.Direct.Context
         /// </summary>
         public string SocialSecurityNumber { get; set; }
         /// <summary>
-        /// Patient matching parameter
+        /// Patient telephone number. Can be multivalued seperate by commas
         /// </summary>
         public string TelephoneNumber { get; set; }
         /// <summary>
@@ -80,9 +86,25 @@ namespace Health.Direct.Context
         /// </summary>
         public string StreetAddress { get; set; }
         /// <summary>
+        /// Full patient locality name. Must not be abbreviated
+        /// </summary>
+        public string LocalityName { get; set; }
+        /// <summary>
+        ///Patient state or province. Can be full name or abbreviation of name.
+        /// </summary>
+        public string StateOrProvinceName { get; set; }
+        /// <summary>
         /// Patient matching parameter
         /// </summary>
         public string PostalCode { get; set; }
+        /// <summary>
+        /// Patient 2 character country code
+        /// </summary>
+        public string Country { get; set; }
+        /// <summary>
+        ///Patient direct address. Can be multivalued seperate by commas
+        /// </summary>
+        public string DirectAddress { get; set; }
 
         /// <summary>
         /// Format patient-attributes as a header value 
@@ -133,11 +155,32 @@ namespace Health.Direct.Context
                 sb.Append(ContextStandard.Patient.PatientStreetAddress).Append("=").Append(StreetAddress).Append(seperator);
             }
 
+            if (!LocalityName.IsNullOrWhiteSpace())
+            {
+                sb.Append(ContextStandard.Patient.PatientLocalityName).Append("=").Append(LocalityName).Append(seperator);
+            }
+
+            if (!StateOrProvinceName.IsNullOrWhiteSpace())
+            {
+                sb.Append(ContextStandard.Patient.PatientStateOrProvinceName).Append("=").Append(StateOrProvinceName).Append(seperator);
+            }
+
+
             if (!PostalCode.IsNullOrWhiteSpace())
             {
                 sb.Append(ContextStandard.Patient.PatientPostalCode).Append("=").Append(PostalCode).Append(seperator);
             }
-            
+
+            if (!Country.IsNullOrWhiteSpace())
+            {
+                sb.Append(ContextStandard.Patient.PatientCountry).Append("=").Append(Country).Append(seperator);
+            }
+
+            if (!DirectAddress.IsNullOrWhiteSpace())
+            {
+                sb.Append(ContextStandard.Patient.PatientDirectAddress).Append("=").Append(DirectAddress).Append(seperator);
+            }
+
             return sb.ToString().TrimEnd(';', ' ');
         }
     }
