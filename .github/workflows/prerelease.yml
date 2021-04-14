@@ -14,6 +14,5 @@ jobs:
     - name: Pack
       run: dotnet pack --configuration Release /p:Version=${VERSION} --output .
     - name: Push
-      run: dotnet nuget push DirectProject.DotNet.Context.${VERSION}.nupkg --source https://nuget.pkg.github.com/JoeShook/index.json --api-key ${GITHUB_TOKEN}
-      env:
-        GITHUB_TOKEN: ${{ secrets.NUGET_API_KEY }}
+      run: dotnet nuget push DirectProject.DotNet.Context.${VERSION}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${secrets.NUGET_API_KEY}
+
