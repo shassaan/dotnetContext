@@ -12,7 +12,7 @@ namespace Health.Direct.Context.Tests.v1_1
     public class TestContext
     {
         [Theory]
-        [InlineData("ContextTestFiles\\v1.1\\ContextSimple1.txtQuotedPrintable")]
+        [InlineData("ContextTestFiles/v1.1/ContextSimple1.txtQuotedPrintable")]
         //UUEncode not supported.   
         //[InlineData("ContextTestFiles\\ContextSimple1.txtUUEncode")]
         public void TestParseContext(string file)
