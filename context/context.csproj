@@ -1,7 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>DirectProject.DotNet.Context</Product>
+    <AssemblyName>Health.Direct.Context</AssemblyName>
+    <RootNamespace>Health.Direct.Context</RootNamespace>
+    <Version>1.0.0.4-beta</Version>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>DirectProject.DotNet.Context</PackageId>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/DirectProject/dotnetContext</RepositoryUrl>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Include="context.nuspec" />
     <None Include="NOTICE.md" />
