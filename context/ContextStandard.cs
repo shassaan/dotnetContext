@@ -118,6 +118,10 @@ namespace Health.Direct.Context
             /// Transaction <c>Type</c>'s <c>category</c> value of "general"
             /// </summary>
             public const string CategoryGeneral = "general";
+            /// <summary>
+            /// Transaction <c>Type</c>'s <c>error</c> value of "general"
+            /// </summary>
+            public const string ErrorGeneral = "error";
 
             /// <summary>
             /// Normative categories.  i.e., other values are not permitted.
@@ -152,7 +156,12 @@ namespace Health.Direct.Context
                 /// <summary>
                 /// The <c>general category</c>
                 /// </summary>
-                General
+                General,
+
+                /// <summary>
+                /// The <c>error category</c>
+                /// </summary>
+                Error
             }
 
             /// <summary>

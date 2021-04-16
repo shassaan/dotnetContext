@@ -19,14 +19,15 @@ Content-ID: <2ff6eaec83894520bbb872e5671ff49e@hobo.lab>
 
 version: 1.1
 id: <2142848@direct.example.com>
-patient-id: 2.16.840.1.113883.19.999999:123456;
- 2.16.840.1.113883.19.888888:75774
-type: error/notification
+patient-id: 2.16.840.1.113883.19.999999:123456
+type: radiology/report
 purpose: research
+creation-time: 20210416080510.1245-4000
 patient: givenName=3DJohn; surname=3DDoe; middleName=3DJacob; dateOfBi=
-rth=3D1961-12-31; gender=3DM; postalCode=3D12345; directAddress=john.d=
-oe@direct.john-doe.net; localityName=John County; country=US; stateOrP=
-rovinceName=NY
+rth=3D1961-12-31; gender=3DM; postalCode=3D12345
+ihe-format-code=ihc: pcc/HL7+N0D/ADT_A01/2.5.1
+content-type: 79429-7/Admission notification note/urn:oid:2.16.840.1.1=
+13883.6.1/LOINC
 
 --=-1GehjmVTXFcPRv+tjzABIA==
 Content-Type: application/pdf; name=report.pdf

@@ -6,10 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ContextTestFiles\ContextSimple1.AdditionalElements" />
     <None Remove="ContextTestFiles\v1.1\ContextSimple1.txtQuotedPrintable" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ContextTestFiles\ContextHL7.Default.txtBase64">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ContextTestFiles\ContextSimple1.AdditionalElements">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="ContextTestFiles\ContextSimple1.txtBase64">

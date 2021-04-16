@@ -322,6 +322,51 @@ namespace Health.Direct.Context.Tests
             AssertEqual(Enumerable.ToList(directMessage.SelectEncapulations()), Enumerable.ToList(echoMessage.SelectEncapulations()));
         }
 
+        [Theory]
+        [InlineData("ContextTestFiles/ContextSimple1.AdditionalElements")]
+        public void TestContextParserIgnoresFutureExtensions(string file)
+        {
+            var directMessage = MimeMessage.Load(file);
+            var context = directMessage.DirectContext();
+
+            //
+            // Metadata
+            //
+            Assert.Equal("1.1", context.Metadata.Version);
+            Assert.Equal("<2142848@direct.example.com>", context.Metadata.Id);
+
+            //
+            // Metatdata PatientId
+            //
+            Assert.Equal("2.16.840.1.113883.19.999999:123456", context.Metadata.PatientId);
+            Assert.Single(context.Metadata.PatientIdentifier);
+            var patientIdentifiers = Enumerable.ToList(context.Metadata.PatientIdentifier);
+            Assert.Equal("2.16.840.1.113883.19.999999", patientIdentifiers[0].PidContext);
+            Assert.Equal("123456", patientIdentifiers[0].LocalPatientId);
+
+            //
+            // Metatdata Type
+            //
+            Assert.Equal("radiology/report", context.Metadata.Type.ToString());
+            Assert.Equal("radiology", context.Metadata.Type.Category);
+            Assert.Equal("report", context.Metadata.Type.Action);
+
+            //
+            // Metatdata Purpose
+            //
+            Assert.Equal("research", context.Metadata.Purpose);
+
+            //
+            // Metadata Patient
+            //
+            Assert.Equal("givenName=John; surname=Doe; middleName=Jacob; dateOfBirth=1961-12-31; gender=M; postalCode=12345",
+                context.Metadata.Patient.ToString());
+
+            Assert.Equal("John", context.Metadata.Patient.GivenName);
+            Assert.Equal("Doe", context.Metadata.Patient.SurName);
+            Assert.Equal("1961-12-31", context.Metadata.Patient.DateOfBirth);
+        }
+
         private void AssertEqual(List<MimePart> expected, List<MimePart> actual)
         {
             if (expected == null) throw new ArgumentNullException(nameof(expected));
