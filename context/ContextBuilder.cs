@@ -14,6 +14,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
  
 */
 
+using System;
 using System.Collections.Generic;
 using MimeKit;
 using System.IO;
@@ -234,6 +235,129 @@ namespace Health.Direct.Context
 
             return this;
         }
+
+        #region ADT Context 1.1 extensions
+
+        /// <summary>
+        /// Set metadata creation-time attribute.
+        /// </summary>
+        /// <param name="creationTime">DateTime creation time</param>
+        /// <returns></returns>
+        public ContextBuilder WithCreationTime(DateTime creationTime)
+        {
+            _directContext.Metadata.CreationTime = creationTime.ToString("yyyyMMddHHmmsszzz");
+            return this;
+        }
+
+        /// <summary>
+        /// Set metadata creation-time attribute.
+        /// </summary>
+        /// <param name="creationTime">creation time as string.  Expected to be in YYYY[MM[DD[HH[MM[SS[.S[S[S[S]]]]]]]]][+/-ZZZZ] format</param>
+        /// <returns></returns>
+        public ContextBuilder WithCreationTime(string creationTime)
+        {
+            if (creationTime.IsNullOrWhiteSpace())
+            {
+                return this;
+            }
+
+            _directContext.Metadata.CreationTime = creationTime;
+            return this;
+        }
+
+        /// <summary>
+        /// FormatCode parameter.
+        /// </summary>
+        /// <param name="formatCode"></param>
+        /// <returns></returns>
+        public ContextBuilder WithFormatCode(FormatCode formatCode)
+        {
+            if (formatCode == null)
+            {
+                return this;
+            }
+            
+            _directContext.Metadata.FormatCode = formatCode;
+            return this;
+        }
+
+        /// <summary>
+        /// FormatCode builder from individual parameters.
+        /// </summary>
+        /// <remarks>All parameters must have values to build FormatCode header</remarks>
+        /// <param name="urn"></param>
+        /// <param name="implementationGuide"></param>
+        /// <param name="messageType"></param>
+        /// <param name="version"></param>
+        /// <returns></returns>
+        public ContextBuilder WithFormatCode(string urn, string implementationGuide, string messageType, string version)
+        {
+            if (urn.IsNullOrWhiteSpace() || 
+                implementationGuide.IsNullOrWhiteSpace() ||
+                messageType.IsNullOrWhiteSpace() || 
+                version.IsNullOrWhiteSpace())
+            {
+                return this;
+            }
+            
+            _directContext.Metadata.FormatCode = new FormatCode()
+            {
+                Urn = urn,
+                ImplementationGuide = implementationGuide,
+                MessageType = messageType,
+                Version = version
+            };
+
+            return this;
+        }
+
+        /// <summary>
+        /// ContextContentType parameter.
+        /// </summary>
+        /// <param name="contextContentType"></param>
+        /// <returns></returns>
+        public ContextBuilder WithContextContentType(ContextContentType contextContentType)
+        {
+            if (contextContentType == null)
+            {
+                return this;
+            }
+
+            _directContext.Metadata.ContextContentType = contextContentType;
+            return this;
+        }
+
+        /// <summary>
+        /// ContextContentType builder from individual parameters.
+        /// </summary>
+        /// <remarks>All parameters must have values to build ContextContentType header</remarks>
+        /// <param name="code"></param>
+        /// <param name="display"></param>
+        /// <param name="codeSystem"></param>
+        /// <param name="codeSystemName"></param>
+        /// <returns></returns>
+        public ContextBuilder WithContextContentType(string code, string display, string codeSystem, string codeSystemName)
+        {
+            if (code.IsNullOrWhiteSpace() ||
+                display.IsNullOrWhiteSpace() ||
+                codeSystem.IsNullOrWhiteSpace() ||
+                codeSystemName.IsNullOrWhiteSpace())
+            {
+                return this;
+            }
+
+            _directContext.Metadata.ContextContentType = new ContextContentType()
+            {
+                CodeSystem = codeSystem,
+                Code = code,
+                Display = display,
+                CodeSystemName = codeSystemName
+            };
+
+            return this;
+        }
+
+        #endregion
 
         /// <summary>
         /// Return a Context object

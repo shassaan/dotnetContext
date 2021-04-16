@@ -131,7 +131,6 @@ namespace Health.Direct.Context
             };
         }
 
-        
         internal static Encapsulation ParseEncapsulation(string headerValue)
         {
             headerValue.AssertEnum<ContextStandard.Encapsulation.Type>(ContextError.InvalidType);
@@ -141,6 +140,44 @@ namespace Health.Direct.Context
                 Type = headerValue
             };
         }
+
+        #region ADT Context v1.1 Extension properties
+        internal static FormatCode ParseFormatCode(string headerValue)
+        {
+            var typeValue = Split(headerValue, new[] { '/' }, ContextError.InvalidType);
+
+            if (typeValue.Count != ContextStandard.FormatCode.FormatCodeElementCount)
+            {
+                throw new ContextException(ContextError.InvalidFormatCode);
+            }
+
+            return new FormatCode()
+            {
+                Urn = typeValue[0],
+                ImplementationGuide = typeValue[1],
+                MessageType = typeValue[2],
+                Version = typeValue[3]
+            };
+        }
+
+        internal static ContextContentType ParseContextContentType(string headerValue)
+        {
+            var typeValue = Split(headerValue, new[] { '/' }, ContextError.InvalidType);
+
+            if (typeValue.Count != ContextStandard.ContextContentType.ContextContentTypeElementCount)
+            {
+                throw new ContextException(ContextError.InvalidFormatCode);
+            }
+
+            return new ContextContentType()
+            {
+                Code = typeValue[0],
+                Display = typeValue[1],
+                CodeSystem = typeValue[2],
+                CodeSystemName = typeValue[3]
+            };
+        }
+        #endregion
 
         static readonly char[] s_fieldSeparator = { ';' };
 

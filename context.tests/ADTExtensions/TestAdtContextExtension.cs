@@ -1,79 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Text;
+using context.tests.Extensions;
+using Health.Direct.Context;
 using MimeKit;
 using MimeKit.Utils;
 using Xunit;
 
-namespace Health.Direct.Context.Tests.v1_1
+namespace context.tests.ADTExtensions
 {
-    public class TestContext
+    public class TestAdtContextExtension
     {
-        [Theory]
-        [InlineData("ContextTestFiles/v1.1/ContextSimple1.txtQuotedPrintable")]
-        //UUEncode not supported.   
-        //[InlineData("ContextTestFiles\\ContextSimple1.txtUUEncode")]
-        public void TestParseContext(string file)
-        {
-            var message = MimeMessage.Load(file);
-            Assert.Equal("2ff6eaec83894520bbb872e5671ff49e@hobo.lab", message.DirectContextId());
-            Assert.True(message.ContainsDirectContext());
-            var context = message.DirectContext();
-            Assert.NotNull(context);
-
-            //
-            // Headers
-            //
-            Assert.Equal("text", context.ContentType.MediaType);
-            Assert.Equal("plain", context.ContentType.MediaSubtype);
-            Assert.Equal("attachment", context.ContentDisposition.Disposition);
-            Assert.Equal("metadata.txt", context.ContentDisposition.FileName);
-            Assert.Equal("2ff6eaec83894520bbb872e5671ff49e@hobo.lab", context.ContentId);
-
-            //
-            // Metadata
-            //
-            Assert.Equal("1.1", context.Metadata.Version);
-            Assert.Equal("<2142848@direct.example.com>", context.Metadata.Id);
-
-            //
-            // Metatdata PatientId
-            //
-            Assert.Equal("2.16.840.1.113883.19.999999:123456; 2.16.840.1.113883.19.888888:75774", context.Metadata.PatientId);
-            Assert.Equal(2, context.Metadata.PatientIdentifier.Count());
-            var patientIdentifiers = Enumerable.ToList(context.Metadata.PatientIdentifier);
-            Assert.Equal("2.16.840.1.113883.19.999999", patientIdentifiers[0].PidContext);
-            Assert.Equal("123456", patientIdentifiers[0].LocalPatientId);
-            Assert.Equal("2.16.840.1.113883.19.888888", patientIdentifiers[1].PidContext);
-            Assert.Equal("75774", patientIdentifiers[1].LocalPatientId);
-
-            //
-            // Metatdata Type
-            //
-            Assert.Equal("radiology/report", context.Metadata.Type.ToString());
-            Assert.Equal("radiology", context.Metadata.Type.Category);
-            Assert.Equal("report", context.Metadata.Type.Action);
-
-            //
-            // Metatdata Purpose
-            //
-            Assert.Equal("research", context.Metadata.Purpose);
-
-            //
-            // Metadata Patient
-            //
-            Assert.Equal("givenName=John; surname=Doe; middleName=Jacob; dateOfBirth=1961-12-31; gender=M; localityName=John County; stateOrProvinceName=NY; postalCode=12345; country=US; directAddress=john.doe@direct.john-doe.net", context.Metadata.Patient.ToString());
-            Assert.Equal("John", context.Metadata.Patient.GivenName);
-            Assert.Equal("Doe", context.Metadata.Patient.SurName);
-            Assert.Equal("1961-12-31", context.Metadata.Patient.DateOfBirth);
-            Assert.Equal("john.doe@direct.john-doe.net", context.Metadata.Patient.DirectAddress);
-            Assert.Equal("John County", context.Metadata.Patient.LocalityName);
-            Assert.Equal("US", context.Metadata.Patient.Country);
-            Assert.Equal("NY", context.Metadata.Patient.StateOrProvinceName);
-        }
-        
         [Fact]
         public void ExampleContextBuild()
         {
@@ -105,11 +42,7 @@ namespace Health.Direct.Context.Tests.v1_1
                         MiddleName = "Jacob",
                         DateOfBirth = "1961-12-31",
                         Gender = "M",
-                        PostalCode = "12345",
-                        StateOrProvinceName = "New York",
-                        LocalityName = "John County",
-                        Country = "US",
-                        DirectAddress = "john.doe@direct.john-doe.net"
+                        PostalCode = "12345"
                     }
                 );
 
@@ -209,16 +142,12 @@ namespace Health.Direct.Context.Tests.v1_1
             //
             // Metadata Patient
             //
-            Assert.Equal("givenName=John; surname=Doe; middleName=Jacob; dateOfBirth=1961-12-31; gender=M; localityName=John County; stateOrProvinceName=New York; postalCode=12345; country=US; directAddress=john.doe@direct.john-doe.net", 
+            Assert.Equal("givenName=John; surname=Doe; middleName=Jacob; dateOfBirth=1961-12-31; gender=M; postalCode=12345",
                 contextParsed.Metadata.Patient.ToString());
 
             Assert.Equal("John", contextParsed.Metadata.Patient.GivenName);
             Assert.Equal("Doe", contextParsed.Metadata.Patient.SurName);
             Assert.Equal("1961-12-31", contextParsed.Metadata.Patient.DateOfBirth);
-            Assert.Equal("john.doe@direct.john-doe.net", context.Metadata.Patient.DirectAddress);
-            Assert.Equal("John County", context.Metadata.Patient.LocalityName);
-            Assert.Equal("US", context.Metadata.Patient.Country);
-            Assert.Equal("New York", context.Metadata.Patient.StateOrProvinceName);
         }
     }
 }

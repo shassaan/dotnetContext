@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using context.tests.Extensions;
 using MimeKit;
 using MimeKit.Utils;
 using Xunit;
@@ -364,20 +365,6 @@ namespace Health.Direct.Context.Tests
             Assert.Equal(context.Metadata.Patient?.PostalCode, messageRebuilt.Metadata.Patient?.PostalCode);
 
             Assert.Equal(context.Metadata.Encapsulation?.Type, messageRebuilt.Metadata.Encapsulation?.Type);
-        }
-    }
-
-
-    public static class Extensions
-    {
-        public static Stream ToStream(this string str)
-        {
-            var stream = new MemoryStream();
-            var writer = new StreamWriter(stream);
-            writer.Write(str);
-            writer.Flush();
-            stream.Position = 0;
-            return stream;
         }
     }
 }
