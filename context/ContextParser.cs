@@ -78,13 +78,13 @@ namespace Health.Direct.Context
         
         private static void VerifyVersion(Metadata metadata, string version)
         {
-            if (!metadata.Headers.Contains(ContextStandard.Version))
+            if (!metadata.Headers.ContainsKey(ContextStandard.Version))
             {
                 throw new ContextException(ContextError.MissingVersionIdentifier);
             }
 
             if (!metadata.Headers.Select(h => 
-                h.Field == ContextStandard.Version &&
+                h.Key == ContextStandard.Version &&
                 h.Value == version).Any())
             {
                 throw new ContextException(ContextError.UnsupportedVersionIdentifier);

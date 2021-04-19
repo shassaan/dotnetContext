@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using context.tests.Extensions;
 using MimeKit;
 using MimeKit.Utils;
 using Xunit;

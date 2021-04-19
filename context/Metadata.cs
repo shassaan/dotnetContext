@@ -17,6 +17,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using MimeKit;
 
@@ -34,7 +35,7 @@ namespace Health.Direct.Context
         /// </summary>
         public Metadata() 
         {
-            Headers = new HeaderList();
+            Headers = new Dictionary<string, string>();
         }
 
         /// <summary>
@@ -43,14 +44,14 @@ namespace Health.Direct.Context
         /// <param name="metadata"></param>
         public Metadata(Stream metadata)
         {
-            Headers = MimeEntity.Load(metadata).Headers;
+            Headers = MimeEntity.Load(metadata).Headers.ToDictionary(c=> c.Field, f => f.Value);
         }
 
         /// <summary>
         /// Gets the list of headers.
         /// </summary>
         /// <value>The list of headers.</value>
-        public HeaderList Headers
+        public Dictionary<string,string> Headers
         {
             get; private set;
         }
@@ -266,7 +267,7 @@ namespace Health.Direct.Context
 
         private void SetValue(string headerName, string headerValue)
         {
-            if (Headers.Contains(headerName))
+            if (Headers.ContainsKey(headerName))
             {
                 Headers[headerName] = headerValue;
             }
