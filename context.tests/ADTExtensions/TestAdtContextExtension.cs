@@ -48,7 +48,7 @@ namespace Health.Direct.Context.Tests.ADTExtensions
             contextBuilder
                 .WithContentId(MimeUtils.GenerateMessageId())
                 .WithDisposition("metadata.txt")
-                .WithTransferEncoding(ContentEncoding.Base64)
+                .WithTransferEncoding(ContentEncoding.QuotedPrintable)
                 .WithVersion("1.1")
                 .WithId(MimeUtils.GenerateMessageId())
                 .WithPatientId(
@@ -118,7 +118,6 @@ namespace Health.Direct.Context.Tests.ADTExtensions
             };
 
             message.Body = multiPart;
-
 
             //
             // Assert context can be serialized and parsed.

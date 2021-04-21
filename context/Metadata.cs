@@ -35,7 +35,7 @@ namespace Health.Direct.Context
         /// </summary>
         public Metadata() 
         {
-            Headers = new Dictionary<string, string>();
+            Headers = new HeaderList();
         }
 
         /// <summary>
@@ -44,14 +44,14 @@ namespace Health.Direct.Context
         /// <param name="metadata"></param>
         public Metadata(Stream metadata)
         {
-            Headers = MimeEntity.Load(metadata).Headers.ToDictionary(c=> c.Field, f => f.Value);
+            Headers = MimeEntity.Load(metadata).Headers;
         }
 
         /// <summary>
         /// Gets the list of headers.
         /// </summary>
         /// <value>The list of headers.</value>
-        public Dictionary<string,string> Headers
+        public HeaderList Headers
         {
             get; private set;
         }
@@ -249,6 +249,10 @@ namespace Health.Direct.Context
 
                 if (String.IsNullOrWhiteSpace(contentTypeCode))
                 {
+                    contentTypeCode = GetValue(ContextStandard.ContextContentType.OutputLabel);
+                }
+                if (String.IsNullOrWhiteSpace(contentTypeCode))
+                {
                     return null;
                 }
 
@@ -256,23 +260,18 @@ namespace Health.Direct.Context
             }
             set
             {
-                                SetValue(ContextStandard.ContextContentType.Label, value.ToString());
+                SetValue(ContextStandard.ContextContentType.Label, value.ToString());
             }
         }
 
         private string GetValue(string headerName)
         {
-            if (!Headers.ContainsKey(headerName))
-            {
-                return null;
-            }
-
             return Headers[headerName];
         }
 
         private void SetValue(string headerName, string headerValue)
         {
-            if (Headers.ContainsKey(headerName))
+            if (Headers.Contains(headerName))
             {
                 Headers[headerName] = headerValue;
             }
@@ -296,7 +295,7 @@ namespace Health.Direct.Context
             // ADT context 1.1 extensions
             sb.AppendHeader(ContextStandard.CreationTime, CreationTime);
             sb.AppendHeader(ContextStandard.FormatCode.Label, FormatCode?.ToString());
-            sb.AppendHeader(ContextStandard.ContextContentType.Label, ContextContentType?.ToString());
+            sb.AppendHeader(ContextStandard.ContextContentType.OutputLabel, ContextContentType?.ToString());
 
             return sb.ToString();
         }

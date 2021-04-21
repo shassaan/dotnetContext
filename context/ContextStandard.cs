@@ -534,7 +534,9 @@ namespace Health.Direct.Context
             /// <summary>
             /// Name for the <c>content-type</c> header
             /// </summary>
-            public const string Label = "content-type";
+            public const string Label = "context-content-type";
+            
+            public const string OutputLabel = "content-type";
 
             public const int ContextContentTypeElementCount = 4;
             /// <summary>
