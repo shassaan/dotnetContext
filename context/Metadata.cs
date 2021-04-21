@@ -256,12 +256,17 @@ namespace Health.Direct.Context
             }
             set
             {
-                SetValue(ContextStandard.ContextContentType.Label, value.ToString());
+                                SetValue(ContextStandard.ContextContentType.Label, value.ToString());
             }
         }
 
         private string GetValue(string headerName)
         {
+            if (!Headers.ContainsKey(headerName))
+            {
+                return null;
+            }
+
             return Headers[headerName];
         }
 
