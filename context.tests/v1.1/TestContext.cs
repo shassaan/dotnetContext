@@ -52,9 +52,9 @@ namespace Health.Direct.Context.Tests.v1_1
             //
             // Metatdata Type
             //
-            Assert.Equal("error/notification", context.Metadata.Type.ToString());
-            Assert.Equal("error", context.Metadata.Type.Category);
-            Assert.Equal("notification", context.Metadata.Type.Action);
+            Assert.Equal("radiology/report", context.Metadata.Type.ToString());
+            Assert.Equal("radiology", context.Metadata.Type.Category);
+            Assert.Equal("report", context.Metadata.Type.Action);
 
             //
             // Metatdata Purpose
@@ -95,7 +95,7 @@ namespace Health.Direct.Context.Tests.v1_1
                         LocalPatientId = "123456"
                     }.ToList()
                 )
-                .WithType(ContextStandard.Type.ErrorGeneral, ContextStandard.Type.ActionNotification)
+                .WithType(ContextStandard.Type.CategoryRadiology, ContextStandard.Type.ActionReport)
                 .WithPurpose(ContextStandard.Purpose.PurposeResearch)
                 .WithPatient(
                     new Patient
@@ -197,9 +197,9 @@ namespace Health.Direct.Context.Tests.v1_1
             //
             // Metatdata Type
             //
-            Assert.Equal("error/notification", contextParsed.Metadata.Type.ToString());
-            Assert.Equal("error", contextParsed.Metadata.Type.Category);
-            Assert.Equal("notification", contextParsed.Metadata.Type.Action);
+            Assert.Equal("radiology/report", contextParsed.Metadata.Type.ToString());
+            Assert.Equal("radiology", contextParsed.Metadata.Type.Category);
+            Assert.Equal("report", contextParsed.Metadata.Type.Action);
 
             //
             // Metatdata Purpose

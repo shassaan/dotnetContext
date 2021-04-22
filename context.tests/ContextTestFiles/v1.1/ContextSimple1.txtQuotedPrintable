@@ -21,7 +21,7 @@ version: 1.1
 id: <2142848@direct.example.com>
 patient-id: 2.16.840.1.113883.19.999999:123456;
  2.16.840.1.113883.19.888888:75774
-type: error/notification
+type: radiology/report
 purpose: research
 patient: givenName=3DJohn; surname=3DDoe; middleName=3DJacob; dateOfBi=
 rth=3D1961-12-31; gender=3DM; postalCode=3D12345; directAddress=john.d=
