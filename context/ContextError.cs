@@ -48,6 +48,14 @@ namespace Health.Direct.Context
         /// <summary>
         /// Invalid <c>patient</c> metadata.
         /// </summary>
-        InvalidPatient
+        InvalidPatient,
+        /// <summary>
+        /// Invalid <c>FormatCode</c> metadata.
+        /// </summary>
+        InvalidFormatCode,
+        /// <summary>
+        /// Invalid <c>ContextContentType</c> metadata.
+        /// </summary>
+        InvalidContextContentType,
     }
 }

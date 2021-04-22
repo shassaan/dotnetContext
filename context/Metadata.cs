@@ -14,8 +14,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
  
 */
 
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using MimeKit;
 
@@ -203,6 +205,65 @@ namespace Health.Direct.Context
             }
         }
 
+        // Admission, discharge, transfer extension properties
+
+        /// <summary>
+        /// Gets and sets the value of <c>creation-time</c> metadata. 
+        /// </summary>
+        public string CreationTime
+        {
+            get
+            {
+                return GetValue(ContextStandard.CreationTime);
+            }
+            set
+            {
+                SetValue(ContextStandard.CreationTime, value);
+            }
+        }
+
+        public FormatCode FormatCode
+        {
+            get
+            {
+                var formatCodeValue = GetValue(ContextStandard.FormatCode.Label);
+
+                if (String.IsNullOrWhiteSpace(formatCodeValue))
+                {
+                    return null;
+                }
+
+                return ContextParser.ParseFormatCode(formatCodeValue);
+            }
+            set
+            {
+                SetValue(ContextStandard.FormatCode.Label, value.ToString());
+            }
+        }
+
+        public ContextContentType ContextContentType
+        {
+            get
+            {
+                var contentTypeCode = GetValue(ContextStandard.ContextContentType.Label);
+
+                if (String.IsNullOrWhiteSpace(contentTypeCode))
+                {
+                    contentTypeCode = GetValue(ContextStandard.ContextContentType.OutputLabel);
+                }
+                if (String.IsNullOrWhiteSpace(contentTypeCode))
+                {
+                    return null;
+                }
+
+                return ContextParser.ParseContextContentType(contentTypeCode);
+            }
+            set
+            {
+                SetValue(ContextStandard.ContextContentType.Label, value.ToString());
+            }
+        }
+
         private string GetValue(string headerName)
         {
             return Headers[headerName];
@@ -230,6 +291,11 @@ namespace Health.Direct.Context
             sb.AppendHeader(ContextStandard.Type.Label, Type?.ToString());
             sb.AppendHeader(ContextStandard.Purpose.Label, Purpose);
             sb.AppendHeader(ContextStandard.Patient.Label, Patient?.ToString());
+
+            // ADT context 1.1 extensions
+            sb.AppendHeader(ContextStandard.CreationTime, CreationTime);
+            sb.AppendHeader(ContextStandard.FormatCode.Label, FormatCode?.ToString());
+            sb.AppendHeader(ContextStandard.ContextContentType.OutputLabel, ContextContentType?.ToString());
 
             return sb.ToString();
         }

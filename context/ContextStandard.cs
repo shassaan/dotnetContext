@@ -84,8 +84,7 @@ namespace Health.Direct.Context
         /// Name for the <c>patient-id</c> header
         /// </summary>
         public const string PatientId = "patient-id";
-
-
+        
         /// <summary>
         /// Transaction type 
         /// </summary>
@@ -232,10 +231,6 @@ namespace Health.Direct.Context
                 Notification
             }
         }
-
-
-        
-
         
         /// <summary>
         /// Context: Purpose types
@@ -445,7 +440,6 @@ namespace Health.Direct.Context
             }
         }
         
-        
         /// <summary>
         /// List of possible <c>encapsulated-message-type</c>s
         /// </summary>
@@ -480,6 +474,100 @@ namespace Health.Direct.Context
                 /// The <c>hl7v2 encapsulated-message-type </c>
                 /// </summary>
                 Hl7V2
+            }
+        }
+
+        // Admission, Discharge and Transfer extension methods
+        /// <summary>
+        /// Name for the <c>creation-time</c> header
+        /// </summary>
+        public const string CreationTime = "creation-time";
+
+        /// <summary>
+        /// Context content type for <c>ihe-format-code</c> header
+        /// </summary>
+        public class FormatCode
+        {
+            /// <summary>
+            /// Name for the <c>ihe-format-code</c> header
+            /// </summary>
+            public const string Label = "ihe-format-code";
+
+            public const int FormatCodeElementCount = 4;
+            /// <summary>
+            /// ihe-format-code-value 
+            /// </summary>
+            public enum FormatCodeParameter
+            {
+                /// <summary>
+                /// Unknown.
+                /// </summary>
+                Unknown = 0,
+
+                /// <summary>
+                /// The <c>urn ihe-format-code-parameter</c>
+                /// </summary>
+                Urn,
+
+                /// <summary>
+                /// The <c>implementationguide ihe-format-code-parameter</c>
+                /// </summary>
+                ImplementationGuide,
+
+                /// <summary>
+                /// The <c>messagetype ihe-format-code-parameter</c>
+                /// </summary>
+                NessageType,
+
+                /// <summary>
+                /// The <c>version ihe-format-code-parameter</c>
+                /// </summary>
+                Version
+            }
+        }
+
+        /// <summary>
+        /// Context content type for <c>content-type</c> header
+        /// </summary>
+        public class ContextContentType
+        {
+            /// <summary>
+            /// Name for the <c>content-type</c> header
+            /// </summary>
+            public const string Label = "context-content-type";
+            
+            public const string OutputLabel = "content-type";
+
+            public const int ContextContentTypeElementCount = 4;
+            /// <summary>
+            /// content-type-value 
+            /// </summary>
+            public enum ContextContentTypeParameter
+            {
+                /// <summary>
+                /// Unknown.
+                /// </summary>
+                Unknown = 0,
+
+                /// <summary>
+                /// The <c>code content-type-parameter</c>
+                /// </summary>
+                Code,
+
+                /// <summary>
+                /// The <c>display content-type-parameter</c>
+                /// </summary>
+                Display,
+
+                /// <summary>
+                /// The <c>code-system content-type-parameter</c>
+                /// </summary>
+                CodeSystem,
+
+                /// <summary>
+                /// The <c>code-system-name content-type-parameter</c>
+                /// </summary>
+                CodeSystemName
             }
         }
     }
