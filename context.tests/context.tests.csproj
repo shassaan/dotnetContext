@@ -3,14 +3,20 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <IsPackable>false</IsPackable>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>Full</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="ContextTestFiles\ContextSimple1.AdtContext" />
+    <None Remove="ContextTestFiles\ContextSimple2.txtSevenBit.lineContinuation" />
     <None Remove="ContextTestFiles\v1.1\ContextSimple1.txtQuotedPrintable" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ContextTestFiles\ContextHL7.Default.txtBase64">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ContextTestFiles\ContextSimple2.txtSevenBit.lineContinuation">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="ContextTestFiles\ContextSimple1.AdtContext">
